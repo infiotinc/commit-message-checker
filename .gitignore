@@ -99,3 +99,4 @@ __tests__/runner/*
 
 # Ignore IDE related files and folders
 .idea
+.parcel-cache
