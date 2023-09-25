@@ -19,7 +19,7 @@
     "format": "prettier --write '**/*.ts'",
     "format-check": "prettier --check '**/*.ts'",
     "lint": "eslint src/**/*.ts",
-    "package": "parcel build src/index.ts",
+    "package": "parcel build --no-optimize src/index.ts",
     "test": "jest"
   },
   "dependencies": {
