@@ -7,7 +7,7 @@ import { CheckerArguments } from "./types";
  * @param     args messages, pattern and error message to process.
  * @returns   void
  */
-export async function checkCommitMessages({ messages, patternRe, error }: CheckerArguments): Promise<void> {
+export function checkCommitMessages({ messages, patternRe, error }: CheckerArguments): void {
   if (messages.length === 0) {
     core.info("No messages to check");
     return;

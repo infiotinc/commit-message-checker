@@ -17,7 +17,7 @@ async function main(): Promise<void> {
       return;
     }
 
-    await commitMessageChecker.checkCommitMessages(args);
+    commitMessageChecker.checkCommitMessages(args);
   } catch (error) {
     if (error instanceof Error) {
       core.setFailed(error);
@@ -30,4 +30,7 @@ async function main(): Promise<void> {
 /**
  * Main entry point
  */
-main().catch((err) => console.error(err));
+main().catch((err) =>
+  // eslint-disable-next-line no-console
+  console.error(err),
+);

@@ -1,5 +1,7 @@
 import * as core from "@actions/core";
 import { graphql } from "@octokit/graphql";
+import fetch from "node-fetch";
+
 
 //
 // Graphql query and response types
@@ -52,13 +54,16 @@ export async function getCommitMessagesFromPullRequest(
   pullRequestNumber: number,
 ): Promise<string[]> {
   const { repository } = await graphql<RepositoryResponse>(query, {
-    baseUrl: process.env["GITHUB_API_URL"] || "https://api.github.com",
+    baseUrl: process.env.GITHUB_API_URL || "https://api.github.com",
     repositoryOwner,
     repositoryName,
     pullRequestNumber,
     headers: {
       authorization: `token ${accessToken}`,
     },
+    request: {
+      fetch,
+    }
   });
 
   core.debug(`response: ${JSON.stringify(repository, null, 2)}`);

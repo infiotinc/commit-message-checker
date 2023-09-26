@@ -39,7 +39,7 @@ export async function getInputs(): Promise<CheckerArguments> {
     // What we actually use
     patternRe: new RegExp(pattern, flags),
     // The error to display in failure
-    error: error,
+    error,
     // Either the commit or pull request messages
     messages: await getMessages({
       checkTitle: !truth.includes(core.getInput("excludeTitle")),
@@ -62,11 +62,11 @@ async function handlePullRequst(options: Options, context: typeof github.context
   const messages: string[] = [];
 
   // Handle pull request title and body
-  if (options.checkTitle && github.context.payload.pull_request.title) {
+  if (options.checkTitle && typeof github.context.payload?.pull_request?.title === 'string') {
     messages.push(github.context.payload.pull_request.title);
   }
 
-  if (options.checkDescription && github.context.payload.pull_request.body) {
+  if (options.checkDescription && typeof github.context.payload?.pull_request?.body === 'string') {
     messages.push(github.context.payload.pull_request.body);
   }
 
@@ -108,6 +108,7 @@ async function handlePullRequst(options: Options, context: typeof github.context
   return messages;
 }
 
+// eslint-disable-next-line @typescript-eslint/require-await
 async function handlePush(options: Options, context: typeof github.context): Promise<string[]> {
   if (!context.payload) {
     throw new Error("No payload found in the context.");
